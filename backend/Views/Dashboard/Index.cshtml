@@ -1,0 +1,40 @@
+﻿@{
+    ViewData["Title"] = "Dashboard Chủ trọ";
+}
+
+<style>
+    body { background-color: #121212; color: white; font-family: sans-serif; }
+    .stat-card { background: #1e1e1e; padding: 20px; width: 200px; border-radius: 8px; transition: 0.3s; }
+    .stat-card:hover { background: #252525; transform: translateY(-5px); }
+</style>
+
+<h1 style="color:#00ff88; padding: 20px;">📊 Dashboard Chủ trọ</h1>
+
+<div style="display:flex; flex-wrap:wrap; gap:20px; padding: 20px;">
+
+    <div class="stat-card" style="border-left:5px solid #00ff88;">
+        <h4 style="color: #888; font-size: 14px;">TỔNG PHÒNG</h4>
+        <h2 style="font-size: 32px;">@ViewBag.TotalRooms</h2>
+    </div>
+
+    <div class="stat-card" style="border-left:5px solid #00ccff;">
+        <h4 style="color: #888; font-size: 14px;">ĐÃ THUÊ</h4>
+        <h2 style="font-size: 32px;">@ViewBag.RentedRooms</h2>
+    </div>
+
+    <div class="stat-card" style="border-left:5px solid #ffcc00;">
+        <h4 style="color: #888; font-size: 14px;">CÒN TRỐNG</h4>
+        <h2 style="font-size: 32px;">@ViewBag.EmptyRooms</h2>
+    </div>
+
+    <div class="stat-card" style="border-left:5px solid #ff66cc;">
+        <h4 style="color: #888; font-size: 14px;">NGƯỜI Ở</h4>
+        <h2 style="font-size: 32px;">@ViewBag.TotalTenants</h2>
+    </div>
+
+    <div class="stat-card" style="border-left:5px solid #00ff88; width: 250px;">
+        <h4 style="color: #888; font-size: 14px;">TỔNG TIỀN</h4>
+        <h2 style="font-size: 28px;">@ViewBag.TotalMoney?.ToString("N0") <span style="font-size: 14px;">VNĐ</span></h2>
+    </div>
+
+</div>

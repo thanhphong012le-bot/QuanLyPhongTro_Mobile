@@ -1,0 +1,24 @@
+﻿@model quanlyphongtro.Models.Room
+
+@{
+    Layout = "_Layout";
+}
+
+<div style="padding:30px; font-family:sans-serif; border: 2px solid #ff4d4d; border-radius:15px; background:#fff5f5; margin-top:50px;">
+    <h2 style="color:#d9534f;">⚠️ Xác nhận xóa phòng</h2>
+    <hr />
+    <h3 style="margin-bottom:20px;">Bạn có chắc chắn muốn xóa phòng này không?</h3>
+    
+    <div style="font-size:18px; background:white; padding:20px; border-radius:10px; box-shadow: 0 2px 5px rgba(0,0,0,0.1);">
+        <p><strong>Tên phòng:</strong> @Model.RoomName</p>
+        <p><strong>Giá thuê:</strong> @Model.Price.ToString("N0") VNĐ</p>
+    </div>
+
+    <form asp-action="Delete" style="margin-top:30px;">
+        <input type="hidden" asp-for="Id" />
+        <button type="submit" style="padding:12px 25px; background:#d9534f; color:white; border:none; border-radius:5px; cursor:pointer; font-weight:bold; font-size:16px;">
+            ĐÚNG, XÓA NGAY!
+        </button>
+        <a asp-action="Index" style="margin-left:20px; color:#6c757d; text-decoration:none;">Hủy bỏ, quay lại</a>
+    </form>
+</div>

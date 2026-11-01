@@ -1,0 +1,22 @@
+﻿@{
+    Layout = null;
+}
+<div style="width:400px; margin:120px auto; background:#2b2b2b; padding:30px; border-radius:15px; box-shadow:0 0 20px rgba(0,255,136,0.2); font-family: sans-serif;">
+    <h1 style="text-align:center; color:#00ff88; margin-bottom:20px;">Đăng nhập</h1>
+
+    <form method="post">
+        @* Hiện gợi ý User *@
+        <input type="text" name="username" placeholder="Username" autocomplete="username"
+               style="width:100%; padding:12px; margin-bottom:15px; background:#111; color:white; border:none; font-size:16px; border-radius:5px; box-sizing: border-box;" />
+
+        @* Chặn bảng hỏi lưu mật khẩu Google *@
+        <input type="password" name="password" placeholder="Password" autocomplete="off"
+               style="width:100%; padding:12px; margin-bottom:20px; background:#111; color:white; border:none; font-size:16px; border-radius:5px; box-sizing: border-box;" />
+
+        <button type="submit" style="width:100%; padding:12px; background:#00ff88; border:none; color:black; font-size:18px; border-radius:5px; font-weight: bold; cursor:pointer;">
+            Đăng nhập
+        </button>
+    </form>
+
+    <p style="color:#ff4d4d; text-align:center; margin-top:10px; font-size: 14px;">@ViewBag.Error</p>
+</div>

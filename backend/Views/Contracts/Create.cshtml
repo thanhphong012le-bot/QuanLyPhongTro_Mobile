@@ -1,0 +1,73 @@
+﻿@model quanlyphongtro.Models.Contract
+
+@{
+    ViewData["Title"] = "Đăng ký hợp đồng thuê phòng";
+}
+
+<div class="card shadow-lg border-0 rounded-lg mt-4">
+    <div class="card-header bg-primary text-white text-center">
+        <h3 class="font-weight-bold my-2">NHẬP THÔNG TIN HỢP ĐỒNG THUÊ PHÒNG</h3>
+    </div>
+    <div class="card-body p-4">
+        <form asp-action="Create" method="post">
+            @Html.AntiForgeryToken()
+            
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label asp-for="FullName" class="form-label fw-bold"></label>
+                    <input asp-for="FullName" class="form-control" placeholder="Nhập đầy đủ họ tên..." />
+                    <span asp-validation-for="FullName" class="text-danger"></span>
+                </div>
+                <div class="col-md-6 mb-3">
+                    
+                    <label asp-for="CCCD" class="form-label fw-bold"></label>
+                    <input asp-for="CCCD" class="form-control" placeholder="Số căn cước công dân..." />
+                    <span asp-validation-for="CCCD" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="Address" class="form-label fw-bold"></label>
+                <input asp-for="Address" class="form-control" placeholder="Địa chỉ thường trú..." />
+                <span asp-validation-for="Address" class="text-danger"></span>
+            </div>
+
+            <div class="row">
+                <div class="col-md-4 mb-3">
+                    
+                    <label asp-for="PhoneNumber" class="form-label fw-bold"></label>
+                    <input asp-for="PhoneNumber" class="form-control" placeholder="Số điện thoại..." />
+                    <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                </div>
+
+                <div class="col-md-4 mb-3">
+                    <label asp-for="StartDate" class="form-label fw-bold"></label>
+                    <input asp-for="StartDate" class="form-control" type="date" />
+                    <span asp-validation-for="StartDate" class="text-danger"></span>
+                </div>
+
+                <div class="col-md-4 mb-3">
+                    <label asp-for="ContractTerm" class="form-label fw-bold"></label>
+                    <select asp-for="ContractTerm" class="form-select form-control">
+                        <option value="1">1 Năm (12 tháng)</option>
+                        <option value="2">2 Năm (24 tháng)</option>
+                    </select>
+                    <span asp-validation-for="ContractTerm" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="mt-4 text-center">
+                <button type="submit" class="btn btn-primary btn-lg px-5 shadow-sm">
+                    <i class="bi bi-send-fill"></i> Gửi thông tin hợp đồng
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<style>
+    .form-label { color: #495057; }
+    .card-header { letter-spacing: 1px; }
+    .btn-primary { background-color: #0d6efd; border: none; transition: 0.3s; }
+    .btn-primary:hover { background-color: #0b5ed7; transform: translateY(-2px); }
+</style>

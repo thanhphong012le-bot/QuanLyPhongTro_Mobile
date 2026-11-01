@@ -1,0 +1,69 @@
+﻿@model quanlyphongtro.Models.User
+
+<div class="container mt-5" style="max-width: 600px; background: #f8f9fa; padding: 30px; border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.2);">
+    <h2 class="text-center text-primary mb-4 fw-bold">🆕 TẠO TÀI KHOẢN MỚI</h2>
+    
+    <form asp-action="Create" method="post">
+        @* Hiện thông báo lỗi tổng quát nếu có *@
+        <div asp-validation-summary="ModelOnly" class="text-danger mb-3 fw-bold"></div>
+
+        @* 1. Tên đăng nhập *@
+        <div class="mb-3">
+            <label class="form-label fw-bold">Tên đăng nhập (Username)</label>
+            <input asp-for="Username" class="form-control border-primary" placeholder="Nhập tên tài khoản..." required />
+            <span asp-validation-for="Username" class="text-danger small"></span>
+        </div>
+
+        @* 2. Mật khẩu *@
+        <div class="mb-3">
+            <label class="form-label fw-bold">Mật khẩu</label>
+            <input asp-for="Password" type="password" class="form-control border-primary" placeholder="Nhập mật khẩu..." required />
+            <span asp-validation-for="Password" class="text-danger small"></span>
+        </div>
+
+        @* 3. Phân quyền *@
+        <div class="mb-3">
+            <label class="form-label fw-bold">Phân quyền (Role)</label>
+            <select asp-for="Role" class="form-select border-primary fw-bold" id="roleSelect">
+                <option value="Tenant">Người thuê (C) - Tenant</option>
+                <option value="Manager">Người quản lý (B) - Manager</option>
+                <option value="Owner">Chủ sở hữu (A) - Owner</option>
+            </select>
+        </div>
+
+        @* 4. Gán vào phòng *@
+        <div class="mb-4" id="roomSelectDiv">
+            <label class="form-label fw-bold">Gán vào phòng (Dành cho Người thuê)</label>
+            <select asp-for="RoomId" class="form-select border-primary" asp-items="ViewBag.Rooms">
+                <option value="">-- Chọn phòng trống --</option>
+            </select>
+            <small class="text-muted text-italic d-block mt-1">* Chỉ cần thiết đối với Người thuê.</small>
+        </div>
+
+        @* 5. Hệ thống nút bấm *@
+        <div class="d-grid gap-2">
+            <button type="submit" class="btn btn-primary btn-lg fw-bold shadow">🚀 XÁC NHẬN TẠO</button>
+            <a asp-action="Index" class="btn btn-outline-secondary fw-bold">Hủy và quay lại</a>
+        </div>
+    </form>
+</div>
+
+@* Script xử lý ẩn hiện phần chọn phòng *@
+<script>
+    function toggleRoomSelect() {
+        var roleSelect = document.getElementById('roleSelect');
+        var roomDiv = document.getElementById('roomSelectDiv');
+        // Nếu chọn Tenant thì hiện, còn lại (Owner, Manager) thì ẩn
+        if (roleSelect.value === 'Tenant') {
+            roomDiv.style.display = 'block';
+        } else {
+            roomDiv.style.display = 'none';
+        }
+    }
+
+    // Lắng nghe sự kiện thay đổi
+    document.getElementById('roleSelect').addEventListener('change', toggleRoomSelect);
+
+    // Chạy kiểm tra ngay khi load trang
+    window.addEventListener('DOMContentLoaded', toggleRoomSelect);
+</script>

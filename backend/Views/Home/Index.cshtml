@@ -1,0 +1,115 @@
+﻿@{
+    ViewData["Title"] = "Trang chủ";
+}
+
+<style>
+    /* Khung chứa slider */
+    #roomCarousel {
+        background-color: #1a1a1a; /* Nền tối để bù đắp phần trống nếu ảnh không full màn hình */
+        border-radius: 15px;
+        overflow: hidden;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    }
+
+    /* Hình ảnh hiển thị trọn vẹn (không bị cắt) */
+    .carousel-item img {
+        width: 100%;
+        height: auto;
+        max-height: 750px; /* Giới hạn độ cao tối đa để không quá dài */
+        object-fit: contain; /* Giữ nguyên tỉ lệ ảnh, không cắt góc */
+        display: block;
+    }
+
+    /* Tùy chỉnh phần chữ đè lên ảnh */
+    .carousel-caption {
+        background: rgba(0, 0, 0, 0.6);
+        border-radius: 20px;
+        padding: 20px;
+        bottom: 10%;
+    }
+
+    .btn-explore {
+        background: linear-gradient(45deg, #0d6efd, #0099ff);
+        border: none;
+        padding: 15px 40px;
+        font-size: 1.2rem;
+        transition: 0.3s;
+    }
+    .btn-explore:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 20px rgba(0,153,255,0.4);
+    }
+</style>
+
+<div class="container mt-4">
+    @* --- SLIDER SHOW TRỌN VẸN ẢNH --- *@
+    <div id="roomCarousel" class="carousel slide carousel-fade" data-bs-ride="carousel">
+        
+        <div class="carousel-indicators">
+            <button type="button" data-bs-target="#roomCarousel" data-bs-slide-to="0" class="active"></button>
+            <button type="button" data-bs-target="#roomCarousel" data-bs-slide-to="1"></button>
+            <button type="button" data-bs-target="#roomCarousel" data-bs-slide-to="2"></button>
+            <button type="button" data-bs-target="#roomCarousel" data-bs-slide-to="3"></button>
+        </div>
+
+        <div class="carousel-inner">
+            @* Slide 1 *@
+            <div class="carousel-item active">
+                <img src="~/images/nhatro1.jpg" alt="Nhà trọ 1">
+                <div class="carousel-caption d-none d-md-block">
+                    <h2 class="fw-bold">KHÔNG GIAN TIỆN NGHI</h2>
+                    <p>Hệ thống phòng trọ sạch sẽ, thoáng mát tại Thanh Phong.</p>
+                </div>
+            </div>
+
+            @* Slide 2 *@
+            <div class="carousel-item">
+                <img src="~/images/nhatro2.png" alt="Nhà trọ 2">
+                <div class="carousel-caption d-none d-md-block">
+                    <h2 class="fw-bold">KIẾN TRÚC HIỆN ĐẠI</h2>
+                    <p>Thiết kế tối ưu không gian sống cho người thuê.</p>
+                </div>
+            </div>
+
+            @* Slide 3 *@
+            <div class="carousel-item">
+                <img src="~/images/nhatro3.png" alt="Nhà trọ 3">
+                <div class="carousel-caption d-none d-md-block">
+                    <h2 class="fw-bold">AN NINH ĐẢM BẢO</h2>
+                    <p>Hệ thống giám sát 24/7 giúp bạn yên tâm sinh sống.</p>
+                </div>
+            </div>
+
+            @* Slide 4  *@
+            <div class="carousel-item">
+                <img src="~/images/nhatro4.png" alt="Nhà trọ 4">
+                <div class="carousel-caption d-none d-md-block">
+                    <h2 class="fw-bold">QUẢN LÝ DỄ DÀNG</h2>
+                    <p>Tra cứu hóa đơn và thanh toán cực kỳ nhanh chóng.</p>
+                </div>
+            </div>
+        </div>
+
+        @* Nút điều khiển *@
+        <button class="carousel-control-prev" type="button" data-bs-target="#roomCarousel" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon shadow"></span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#roomCarousel" data-bs-slide="next">
+            <span class="carousel-control-next-icon shadow"></span>
+        </button>
+    </div>
+  
+<div class="container text-center mt-5 mb-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <h3 class="text-secondary mb-4">Chào Mừng Bạn Đến Với Phòng Trọ Lê Thanh Phong</h3>
+            
+            
+            <a asp-controller="Account" asp-action="Login" 
+               class="btn btn-primary btn-lg px-5 py-3 shadow-lg fw-bold rounded-pill btn-start">
+                🚀 KHÁM PHÁ NGAY
+            </a>
+        </div>
+    </div>
+</div>
+</div>

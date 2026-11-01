@@ -1,0 +1,95 @@
+﻿@model IEnumerable<quanlyphongtro.Models.Invoice>
+@using Microsoft.AspNetCore.Http
+@{
+    var role = Context.Session.GetString("Role")?.ToLower();
+}
+
+<div class="card shadow">
+    <div class="card-header bg-primary text-white">
+        <h3 class="mb-0">🧾 Danh sách hóa đơn điện nước</h3>
+    </div>
+    <div class="card-body">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>Phòng</th>
+                    <th>Tháng/Năm</th>
+                    <th>Tổng tiền (VNĐ)</th>
+                    <th>Trạng thái</th>
+                    <th>Thao tác</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    @* Thêm ID vào dòng để dễ quản lý *@
+                    <tr id="row-@item.Id">
+                        <td><strong>@item.Room?.RoomName</strong></td>
+                        <td>@item.Month/@item.Year</td>
+                        <td class="text-danger fw-bold">@item.TotalAmount.ToString("N0")</td>
+                        
+                        @* Thêm ID vào cột trạng thái *@
+                        <td id="status-@item.Id">
+                            @if (item.IsPaid)
+                            {
+                                <span class="badge bg-success">Đã thu</span>
+                            }
+                            else
+                            {
+                                <span class="badge bg-warning text-dark">Chưa thu</span>
+                            }
+                        </td>
+
+                        <td>
+                            <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-sm btn-outline-info">Xem chi tiết</a>
+
+                            @* Nút Duyệt cho Admin (Manager/Owner) *@
+                            @if (!item.IsPaid && (role == "manager" || role == "owner"))
+                            {
+                                <button type="button"
+                                        id="btn-confirm-@item.Id"
+                                        class="btn btn-sm btn-success ms-1"
+                                        onclick="approveInvoice(@item.Id)">
+                                    ✅ Duyệt
+                                </button>
+                            }
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+@* Script xử lý AJAX *@
+<script>
+    function approveInvoice(id) {
+        if (confirm('Xác nhận hóa đơn này đã được thanh toán?')) {
+            // Gửi yêu cầu đến Server
+            fetch('/Invoices/ConfirmPaymentAjax/' + id, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    // 1. Cập nhật trạng thái hiển thị ngay lập tức (đổi đỏ thành xanh)
+                    const statusTd = document.getElementById('status-' + id);
+                    statusTd.innerHTML = '<span class="badge bg-success animate__animated animate__fadeIn">Đã thu</span>';
+                    
+                    // 2. Ẩn nút "Duyệt" đi
+                    const btnConfirm = document.getElementById('btn-confirm-' + id);
+                    if (btnConfirm) btnConfirm.style.display = 'none';
+
+                    // 3. Thông báo cho người dùng
+                    alert('Đã duyệt thành công!');
+                } else {
+                    alert('Có lỗi xảy ra: ' + data.message);
+                }
+            })
+            .catch(err => console.error('Error:', err));
+        }
+    }
+</script>

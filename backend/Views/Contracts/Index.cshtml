@@ -1,0 +1,118 @@
+﻿@model IEnumerable<quanlyphongtro.Models.Contract>
+
+@{
+    ViewData["Title"] = "Quản lý hợp đồng thuê phòng";
+}
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
+
+<div class="container-fluid shadow-sm p-3 mb-5 bg-white rounded">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="text-primary font-weight-bold">
+            <i class="fas fa-file-signature"></i> QUẢN LÝ HỢP ĐỒNG THUÊ PHÒNG
+        </h2>
+        <span class="badge badge-info p-2">Tổng số: @Model.Count() yêu cầu</span>
+    </div>
+
+    <div class="table-responsive">
+        <table class="table table-hover table-striped table-bordered text-center align-middle">
+            <thead class="thead-dark">
+                <tr>
+                    <th style="width: 15%">Họ tên khách</th>
+                    <th style="width: 10%">CCCD</th>
+                    <th style="width: 15%">Ngày bắt đầu</th>
+                    <th style="width: 12%">Thời hạn</th>
+                    <th style="width: 15%">Ngày kết thúc</th>
+                    <th style="width: 10%">Điện thoại</th>
+                    <th style="width: 10%">Trạng thái</th>
+                    <th style="width: 13%">Thao tác</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (!Model.Any())
+                {
+                    <tr>
+                        <td colspan="8" class="text-center text-muted italic p-4">Chưa có dữ liệu hợp đồng nào được gửi về.</td>
+                    </tr>
+                }
+                else
+                {
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td class="text-left">@item.FullName</td>
+                            <td>@item.CCCD</td>
+                            <td>@item.StartDate.ToString("dd/MM/yyyy")</td>
+                            
+                            <td class="fas-alt">@item.ContractTerm năm</td>
+                            <td class=" fas-alt">@item.EndDate.ToString("dd/MM/yyyy")</td>
+                            <td>
+                                <a ="@item.PhoneNumber" style="color: #2c3e50;">
+                                    <i class="fas-alt"></i> @item.PhoneNumber
+                                </a>
+                            </td>
+                            <td>
+                                @if (item.Status == "Pending")
+                                {
+                                    <span class="fas-alt">Chờ duyệt</span>
+                                }
+                                else
+                                {
+                                    <span class="fas-alt">Đã duyệt</span>
+                                }
+                            </td>
+                            <td>
+                                <div class="d-flex justify-content-center" style="gap: 5px;">
+                                    @if (item.Status == "Pending")
+                                    {
+                                        <form asp-action="Approve" asp-route-id="@item.Id" method="post" class="m-0">
+                                            <button type="submit" class="btn btn-sm btn-success rounded-pill px-3" 
+                                                    onclick="return confirm('Xác nhận duyệt hợp đồng này?')">
+                                                <i class="fas fa-check"></i> Duyệt
+                                            </button>
+                                        </form>
+                                    }
+
+                                    <form asp-action="Delete" asp-route-id="@item.Id" method="post" class="m-0">
+                                        <button type="submit" class="btn btn-sm btn-danger rounded-pill px-3" 
+                                                onclick="return confirm('Bạn có chắc chắn muốn xóa hợp đồng của @item.FullName không?')">
+                                            <i class="fas fa-trash-alt"></i> Xóa
+                                        </button>
+                                    </form>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<style>
+    .table thead th {
+        vertical-align: middle;
+        border-bottom-width: 2px;
+        text-transform: uppercase;
+        font-size: 0.8rem;
+        background-color: #343a40;
+        color: white;
+    }
+    .container-fluid {
+        margin-top: 20px;
+    }
+    /* Màu xanh đậm giống Họ tên */
+    .text-primary {
+        color: #0d6efd !important;
+    }
+    .font-weight-bold {
+        font-weight: 700 !important;
+    }
+    .rounded-pill {
+        border-radius: 50px !important;
+        font-size: 0.75rem;
+    }
+    .align-middle {
+        vertical-align: middle !important;
+    }
+</style>

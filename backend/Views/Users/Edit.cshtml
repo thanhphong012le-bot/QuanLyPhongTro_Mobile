@@ -1,0 +1,53 @@
+﻿@model quanlyphongtro.Models.User
+
+<div class="container mt-5" style="max-width: 600px; background: #fff; padding: 30px; border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.1);">
+    <h2 class="text-center text-warning mb-4 fw-bold">✏️ CHỈNH SỬA THÀNH VIÊN</h2>
+    
+    <form asp-action="Edit" method="post">
+        @* Giữ lại ID để biết đang sửa User nào *@
+        <input type="hidden" asp-for="Id" />
+        
+        <div class="mb-3">
+            <label class="form-label fw-bold">Tên đăng nhập</label>
+            <input asp-for="Username" class="form-control bg-light" readonly />
+            <small class="text-muted italic">* Tên tài khoản là cố định.</small>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label fw-bold">Mật khẩu mới</label>
+            <input asp-for="Password" type="password" class="form-control border-warning" placeholder="Nhập mật khẩu mới..." required />
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label fw-bold">Quyền hạn (Role)</label>
+            <select asp-for="Role" class="form-select border-warning fw-bold" id="roleEdit">
+                <option value="Tenant">Người thuê (C)</option>
+                <option value="Manager">Người quản lý (B)</option>
+                <option value="Owner">Chủ sở hữu (A)</option>
+            </select>
+        </div>
+
+        <div class="mb-4" id="roomEditDiv">
+            <label class="form-label fw-bold">Gán vào phòng</label>
+            <select asp-for="RoomId" class="form-select border-warning" asp-items="ViewBag.Rooms">
+                <option value="">-- Chọn phòng để gán --</option>
+            </select>
+            <p class="text-danger small mt-1">* Lưu ý: User phải được gán phòng thì mới thấy được hóa đơn.</p>
+        </div>
+
+        <div class="d-grid gap-2">
+            <button type="submit" class="btn btn-warning btn-lg fw-bold shadow">CẬP NHẬT NGAY</button>
+            <a asp-action="Index" class="btn btn-outline-secondary fw-bold">Quay lại danh sách</a>
+        </div>
+    </form>
+</div>
+
+<script>
+    function toggleRoomEdit() {
+        var role = document.getElementById('roleEdit').value;
+        var roomDiv = document.getElementById('roomEditDiv');
+        roomDiv.style.display = (role === 'Tenant') ? 'block' : 'none';
+    }
+    document.getElementById('roleEdit').addEventListener('change', toggleRoomEdit);
+    window.onload = toggleRoomEdit;
+</script>

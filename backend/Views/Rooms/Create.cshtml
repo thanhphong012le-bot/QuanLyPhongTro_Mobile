@@ -1,0 +1,46 @@
+﻿@model quanlyphongtro.Models.Room
+
+@* Đổi container thành container-fluid và thêm px-5 để giống hệt lề của bảng list *@
+<div class="container-fluid mt-5 px-5">
+    <div class="row justify-content-center">
+        @* Đổi col-md-8 thành col-md-12 để chiếm trọn chiều ngang *@
+        <div class="col-md-12 shadow-lg p-5 bg-white rounded border">
+            <h1 class="text-success text-center mb-5 fw-bold" style="font-size: 3rem;">🆕 THÊM PHÒNG TRỌ MỚI</h1>
+            <hr />
+            
+            <form asp-action="Create">
+                <div class="row">
+                    @* Tên phòng *@
+                    <div class="col-md-10">
+                        <label class="form-label fw-bold" style="font-size: 1.5rem;">Tên phòng</label>
+                        <input asp-for="RoomName" class="form-control form-control-lg" style="height: 70px; font-size: 1.5rem;" placeholder="Ví dụ: Phòng 101" required />
+                    </div>
+
+                    @* Giá thuê *@
+                    <div class="col-md-10">
+                        <label class="form-label fw-bold" style="font-size: 1.5rem;">Giá thuê (VNĐ/tháng)</label>
+                        <input asp-for="Price" type="number" class="form-control form-control-lg" style="height: 70px; font-size: 1.5rem;" placeholder="2,000,000" required />
+                    </div>
+                </div>
+
+                @* Trạng thái *@
+                <div class="col-md-10 border rounded bg-light">
+                    <div class="form-check form-switch d-flex align-items-center">
+                        <input class="form-check-input" type="checkbox" asp-for="Status" checked style="width: 70px; height: 35px; cursor: pointer;">
+                            <label class="form-check-label ms-4 fw-bold" style="font-size: 1.5rem;">Trạng thái: Còn trống</label>
+                        </div>
+                    </div>
+
+                    @* Cụm nút bấm cũng làm lớn ra *@
+                    <div class="row">
+                        <div class="col-md-10">
+                            <button type="submit" class="btn btn-success btn-lg w-100 py-3 fw-bold" style="font-size: 2rem;">💾 LƯU THÔNG TIN PHÒNG</button>
+                        </div>
+                        <div class="col-md-10">
+                            <a asp-action="Index" class="btn btn-outline-secondary btn-lg w-100 py-3 fw-bold" style="font-size: 2rem;">QUAY LẠI</a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>

@@ -1,0 +1,107 @@
+﻿@model quanlyphongtro.Models.Invoice
+
+<div class="container mt-4" style="max-width: 800px;">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a asp-controller="Rooms" asp-action="Index">Danh sách phòng</a></li>
+            <li class="breadcrumb-item active">Ghi chỉ số</li>
+        </ol>
+    </nav>
+
+    <div class="card shadow border-0 rounded-3">
+        <div class="card-header bg-primary text-white py-3">
+            <h3 class="mb-0 text-center"><i class="bi bi-ev-station"></i> Nhập chỉ số: @Model.Room?.RoomName</h3>
+        </div>
+        <div class="card-body p-4">
+            <form asp-action="Create" id="invoiceForm">
+                <input type="hidden" asp-for="RoomId" />
+                
+                <div class="row mb-4">
+                    <div class="col-6">
+                        <label class="fw-bold"><i class="bi bi-calendar-event"></i> Tháng</label>
+                        <input asp-for="Month" class="form-control" readonly style="background-color: #e9ecef;" />
+                    </div>
+                    <div class="col-6">
+                        <label class="fw-bold"><i class="bi bi-calendar-check"></i> Năm</label>
+                        <input asp-for="Year" class="form-control" readonly style="background-color: #e9ecef;" />
+                    </div>
+                </div>
+
+                <div class="row g-4">
+                    @* PHẦN ĐIỆN *@
+                    <div class="col-md-6 border-end">
+                        <div class="p-3 bg-light rounded shadow-sm">
+                            <h5 class="text-warning fw-bold"><i class="bi bi-lightning-charge-fill"></i> ĐIỆN</h5>
+                            <hr />
+                            <div class="mb-3">
+                                <label class="text-muted">Chỉ số cũ</label>
+                                <input asp-for="ElectricOld" class="form-control border-0 bg-transparent fw-bold fs-4 text-danger" readonly />
+                            </div>
+                            <div class="mb-2">
+                                <label class="fw-bold">Chỉ số mới</label>
+                                <input asp-for="ElectricNew" id="electricNew" type="number"
+                                       class="form-control form-control-lg border-warning shadow-sm"
+                                       placeholder="0" required min="@Model.ElectricOld" />
+                                <div class="invalid-feedback">Số mới phải lớn hơn hoặc bằng @Model.ElectricOld</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    @* PHẦN NƯỚC *@
+                    <div class="col-md-6">
+                        <div class="p-3 bg-light rounded shadow-sm">
+                            <h5 class="text-info fw-bold"><i class="bi bi-droplet-fill"></i> NƯỚC</h5>
+                            <hr />
+                            <div class="mb-3">
+                                <label class="text-muted">Chỉ số cũ</label>
+                                <input asp-for="WaterOld" class="form-control border-0 bg-transparent fw-bold fs-4 text-danger" readonly />
+                            </div>
+                            <div class="mb-2">
+                                <label class="fw-bold">Chỉ số mới</label>
+                                <input asp-for="WaterNew" id="waterNew" type="number"
+                                       class="form-control form-control-lg border-info shadow-sm"
+                                       placeholder="0" required min="@Model.WaterOld" />
+                                <div class="invalid-feedback">Số mới phải lớn hơn hoặc bằng @Model.WaterOld</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-4 p-3 rounded" style="background-color: #fff3cd; border-left: 5px solid #ffc107;">
+                    <p class="mb-1 fw-bold text-dark"><i class="bi bi-calculator"></i> Biểu phí đang áp dụng cho phòng này:</p>
+                    <div class="d-flex flex-wrap gap-2">
+                        <span class="badge bg-dark">⚡ Điện: @Model.Room?.ElectricPrice.ToString("N0") đ/kWh</span>
+                        <span class="badge bg-dark">💧 Nước: @Model.Room?.WaterPrice.ToString("N0") đ/m3</span>
+                        <span class="badge bg-dark">📶 Wifi: @Model.Room?.WifiPrice.ToString("N0") đ</span>
+                        <span class="badge bg-dark">🗑️ Rác: @Model.Room?.TrashPrice.ToString("N0") đ</span>
+                    </div>
+                </div>
+
+                <div class="mt-4 d-grid gap-2">
+                    <button type="submit" class="btn btn-success btn-lg fw-bold shadow">
+                        <i class="bi bi-file-earmark-check"></i> XÁC NHẬN & XUẤT HÓA ĐƠN
+                    </button>
+                    <a asp-controller="Rooms" asp-action="Index" class="btn btn-outline-secondary">Hủy bỏ</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        // Script kiểm tra đơn giản tại máy khách để tránh Manager nhập sai
+        document.getElementById("invoiceForm").onsubmit = function() {
+            let eOld = @Model.ElectricOld;
+            let eNew = document.getElementById("electricNew").value;
+            let wOld = @Model.WaterOld;
+            let wNew = document.getElementById("waterNew").value;
+
+            if (parseInt(eNew) < eOld || parseInt(wNew) < wOld) {
+                alert("Lỗi: Số mới không được nhỏ hơn số cũ!");
+                return false;
+            }
+            return true;
+        };
+    </script>
+}

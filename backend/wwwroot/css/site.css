@@ -1,0 +1,127 @@
+/* ===================================
+   CSS MẶC ĐỊNH ASP.NET CORE
+   (KHÔNG XÓA PHẦN NÀY)
+   =================================== */
+
+html {
+    font-size: 14px;
+}
+
+@media (min-width: 768px) {
+    html {
+        font-size: 16px;
+    }
+}
+
+html {
+    position: relative;
+    min-height: 100%;
+}
+
+body {
+    margin-bottom: 60px;
+    background-color: #f4f5f7; /* nền xám nhạt */
+    color: #1f2933;
+}
+
+
+/* ===================================
+   DARK THEME – ROOM LIST (FIX CHỮ TỐI)
+   =================================== */
+
+/* Bảng danh sách phòng */
+.room-table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #1f1f1f; /* nền xám đen */
+    color: #ffffff; /* CHỮ TRẮNG */
+}
+
+    /* Header bảng */
+    .room-table thead th {
+        background-color: #0f0f0f;
+        color: #ffffff;
+        padding: 12px;
+        text-transform: uppercase;
+        font-size: 0.9rem;
+        font-weight: 600;
+    }
+
+    /* Nội dung bảng */
+    .room-table td {
+        padding: 12px;
+        border-bottom: 1px solid #444;
+        color: #ffffff; /* ép chữ trắng */
+    }
+
+    /* Hover dòng */
+    .room-table tbody tr:hover {
+        background-color: #2f2f2f;
+    }
+
+/* ===================================
+   TRẠNG THÁI PHÒNG
+   =================================== */
+
+.status-available {
+    background-color: #00ff88;
+    color: #000;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-weight: 600;
+}
+
+.status-rented {
+    background-color: #6b7280;
+    color: #ffffff;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-weight: 500;
+}
+
+/* ===================================
+   NÚT + LINK HÀNH ĐỘNG
+   =================================== */
+
+.btn-add-room {
+    background-color: #00ff88;
+    color: #000;
+    padding: 8px 14px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+    .btn-add-room:hover {
+        background-color: #00cc70;
+        color: #000;
+    }
+
+/* Link hành động */
+.action {
+    margin-right: 10px;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+    .action.edit {
+        color: #00ff88;
+    }
+
+    .action.view {
+        color: #00ccff;
+    }
+
+    .action.delete {
+        color: #ff4d4d;
+    }
+
+/* ===================================
+   TIÊU ĐỀ
+   =================================== */
+
+.room-title {
+    color: #00ff88;
+    font-weight: 700;
+    margin-bottom: 15px;
+}

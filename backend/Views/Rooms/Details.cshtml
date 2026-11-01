@@ -1,0 +1,28 @@
+﻿@model quanlyphongtro.Models.Room
+
+<div style="padding: 20px; font-family: sans-serif;">
+    <h1 style="color: #007bff;">🔍 Chi tiết phòng: @Model.RoomName</h1>
+    <hr />
+    <div style="font-size: 18px; line-height: 2;">
+        <p><strong>Mã số:</strong> @Model.Id</p>
+        <p><strong>Tên phòng:</strong> @Model.RoomName</p>
+        <p><strong>Giá thuê:</strong> <span style="color: red;">@Model.Price.ToString("N0") VNĐ</span></p>
+        <p>
+            <strong>Trạng thái:</strong>
+            @if (Model.Status)
+            {
+                <span style="color: green;">Còn trống</span>
+            }
+            else
+            {
+
+                <span style="color: gray;">Đã cho thuê</span>
+            }
+        </p>
+    </div>
+    <hr />
+    <div>
+        <a asp-action="Edit" asp-route-id="@Model.Id" style="padding: 10px 20px; background: #ffc107; color: black; text-decoration: none; border-radius: 5px;">Sửa thông tin</a>
+        <a asp-action="Index" style="margin-left: 10px; color: #6c757d;">Quay lại danh sách</a>
+    </div>
+</div>
